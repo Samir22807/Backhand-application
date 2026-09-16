@@ -3,12 +3,12 @@ import moongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const videoSchema = new Schema(
     {
-        videofile:{
-            type: String,//clodnary url
+        videofile: {
+            type: String, // cloudinary url
             required: true
         },
-        thumbnail:{
-            type: String,//clodnary url
+        thumbnail: {
+            type: String, // cloudinary url
             required: true
         },
         title: {
@@ -20,7 +20,7 @@ const videoSchema = new Schema(
             required: true,
         },
         duration: {
-            type: Number,//clodnary url
+            type: Number, // duration
             required: true,
         },
         views: {
@@ -42,4 +42,5 @@ const videoSchema = new Schema(
 );
 
 videoSchema.plugin(moongooseAggregatePaginate);
+
 export const Video = mongoose.model("Video", videoSchema);

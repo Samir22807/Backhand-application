@@ -7,20 +7,25 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-
 const uploadToCloudinary = async (filePath) => {
     try {
-        if (!filePath) { return null; }
-
+        if (!filePath) {
+            return null;
+        }
         const response = await cloudinary.uploader.upload(filePath, {
             resource_type: "auto"
         });
-        console.log("File upload on cloudinary successfullly", response.url);
-        return response;
-    }catch (error) {
+        console.log("File uploaded on cloudinary successfully", response.url);
+        
+        // Upload hone ke baad local temp file ko delete karna best practice hai
         fs.unlinkSync(filePath);
+        return response;
+    } catch (error) {
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
         return null;
     }
-}
+};
 
 export { uploadToCloudinary };
