@@ -5,10 +5,11 @@ const storage = multer.diskStorage({
     cb(null, "./public/temp");
   },
   filename: function (req, file, cb) {
-    cb(null,file.originalname+"-"+Date.now());
+    // આગળ ટાઇમસ્ટેમ્પ લગાવવાથી પાછળ .png/.jpg સચવાઈ રહેશે
+    cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 export { upload };
